@@ -45,38 +45,43 @@ public class SendMessage extends AppCompatActivity {
         insertMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Encryption userMessage = new Encryption(answer.getText().toString());
-                StringRequest request = new StringRequest(Request.Method.POST, insertURL, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+                String userAnswer = answer.getText().toString();
+                if (userAnswer.length() < 2) {
+                    Toast.makeText(SendMessage.this, "Answer must be at least 2 characters!",Toast.LENGTH_LONG).show();
+                } else {
+                    final Encryption userMessage = new Encryption(answer.getText().toString());
+                    StringRequest request = new StringRequest(Request.Method.POST, insertURL, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
 
-                        //listen for response from server and let user know if alias is already used
-                        if (!response.toString().isEmpty()) {
-                            Toast.makeText(SendMessage.this, response.toString(), Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(SendMessage.this, "Message Sent!", Toast.LENGTH_SHORT).show();
+                            //listen for response from server and let user know if alias is already used
+                            if (!response.toString().isEmpty()) {
+                                Toast.makeText(SendMessage.this, response.toString(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SendMessage.this, "Message Sent!", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                }, new Response.ErrorListener() {
-                    //this returns error if there is runtime error on server
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SendMessage.this, "server error", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
+                    }, new Response.ErrorListener() {
+                        //this returns error if there is runtime error on server
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(SendMessage.this, "server error", Toast.LENGTH_SHORT).show();
+                        }
+                    }) {
 
-                    //These are the values sent to the server
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> parameters = new HashMap<String, String>();
-                        parameters.put("alias", alias.getText().toString());
-                        parameters.put("message", userMessage.encrypt(message.getText().toString()));
-                        parameters.put("question", question.getText().toString());
+                        //These are the values sent to the server
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> parameters = new HashMap<String, String>();
+                            parameters.put("alias", alias.getText().toString());
+                            parameters.put("message", userMessage.encrypt(message.getText().toString()));
+                            parameters.put("question", question.getText().toString());
 
-                        return parameters;
-                    }
-                };
-                requestQueue.add(request);
+                            return parameters;
+                        }
+                    };
+                    requestQueue.add(request);
+                }
             }
         });
 

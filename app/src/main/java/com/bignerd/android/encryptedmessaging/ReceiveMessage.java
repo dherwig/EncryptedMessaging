@@ -31,7 +31,7 @@ public class ReceiveMessage extends AppCompatActivity {
     EditText alias, answer;
     TextView message, decryptedMessage;
     String getMessage = "http://192.168.1.235/readMessage.php";
-    String encryptedMessage;
+    String encryptedMessage = "filler to not crash app";
     String actualMessage;
     RequestQueue requestQueue;
 
@@ -107,8 +107,13 @@ public class ReceiveMessage extends AppCompatActivity {
         decrypt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Encryption mes = new Encryption(answer.getText().toString());
-                decryptedMessage.setText(mes.decrypt(encryptedMessage));
+                String userAnswer = answer.getText().toString();
+                if(userAnswer.length()>1) {
+                    Encryption mes = new Encryption(answer.getText().toString());
+                    decryptedMessage.setText(mes.decrypt(encryptedMessage));
+                }else{
+                    Toast.makeText(ReceiveMessage.this, "Answer must be at least 2 characters!",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
