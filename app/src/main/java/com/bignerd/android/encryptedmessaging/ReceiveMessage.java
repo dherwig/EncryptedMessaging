@@ -30,7 +30,7 @@ public class ReceiveMessage extends AppCompatActivity {
     Button search, decrypt;
     EditText alias, answer;
     TextView message, decryptedMessage;
-    String getMessage = "http://192.168.1.235/readMessage.php";
+    String getMessage = "http://donherwig.com/readMessage.php";
     String encryptedMessage = "filler to not crash app";
     String actualMessage;
     RequestQueue requestQueue;
@@ -42,6 +42,8 @@ public class ReceiveMessage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String dataFromMessageList = getIntent().getStringExtra("alias");
+
         search = (Button) findViewById(R.id.getMessageButton);
         decrypt = (Button) findViewById(R.id.decrypt);
         alias = (EditText) findViewById(R.id.searchAlias);
@@ -49,6 +51,9 @@ public class ReceiveMessage extends AppCompatActivity {
         message = (TextView) findViewById(R.id.messageTextView);
         decryptedMessage = (TextView) findViewById(R.id.decryptedMessage);
 
+        if(dataFromMessageList != null){
+            alias.setText(dataFromMessageList);
+        }
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         search.setOnClickListener(new View.OnClickListener() {

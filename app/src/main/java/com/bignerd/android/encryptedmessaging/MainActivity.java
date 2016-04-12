@@ -13,7 +13,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button sendButton, receiveButton;
+    Button sendButton, receiveButton, seeMessagesButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         sendButton = (Button) findViewById(R.id.send);
         receiveButton = (Button) findViewById(R.id.receive);
+        seeMessagesButton = (Button) findViewById(R.id.seeMessages);
 
         sendButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -36,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, ReceiveMessage.class);
+                MainActivity.this.startActivity(i);
+            }
+        });
+
+        seeMessagesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, MessageList.class);
                 MainActivity.this.startActivity(i);
             }
         });

@@ -24,7 +24,7 @@ public class SendMessage extends AppCompatActivity {
 
     EditText alias, message, question, answer;
     Button insertMessage;
-    String insertURL = "http://192.168.1.235/insertMessage.php";
+    String insertURL = "http://donherwig.com/insertMessage.php";
     RequestQueue requestQueue;
 
     @Override

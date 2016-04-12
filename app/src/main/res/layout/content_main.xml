@@ -35,4 +35,16 @@
         android:height = "75dp"
         android:id="@+id/send"
         android:text="Send Message"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seeMessages"
+        android:layout_below="@+id/receive"
+        android:layout_marginTop="46dp"
+        android:layout_alignLeft="@+id/receive"
+        android:layout_alignStart="@+id/receive"
+        android:layout_alignRight="@+id/receive"
+        android:layout_alignEnd="@+id/receive"
+        android:text="See Messages"/>
 </RelativeLayout>
